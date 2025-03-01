@@ -81,7 +81,7 @@ vim.keymap.set("n", "<leader>ee", ":NvimTreeToggle<CR>", noremap)
 vim.keymap.set("n", "<leader>eo", ":NvimTreeOpen<CR>", noremap)
 vim.keymap.set("n", "<leader>ec", ":NvimTreeClose<CR>", noremap)
 vim.keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>", noremap)
-vim.keymap.set("n", "<leader>ew", "<C-w>w", noremap) -- Random key combo used to switch to file from nvimtree
+vim.keymap.set("n", "<leader>ew", "<C-w>w", noremap)
 
 -- Telescope
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", noremap)
@@ -94,9 +94,13 @@ vim.keymap.set('n', '<leader>dc', ':lua require"dotnet.cli".clean()<CR>', norema
 vim.keymap.set('n', '<leader>dr', ':lua require"dotnet.cli".restore()<CR>', noremap)
 vim.keymap.set('n', '<leader>dh', ':lua require"dotnet.cli".open_history()<CR>', noremap)
 vim.keymap.set('n', '<leader>dl', ':lua require"dotnet.cli".run_last_cmd()<CR>', noremap)
-vim.keymap.set('n', '<leader>ds', ':lua require"dotnet.solution.manager".open()<CR>', noremap)
-vim.keymap.set('n', '<leader>dp', ':lua require"dotnet.solution.manager".open_projects()<CR>', noremap)
-vim.keymap.set('n', '<leader>dt', ':lua require"dotnet.solution.test_runner".open_tests()<CR>', noremap)
+
+vim.keymap.set('n', '<leader>ds', ':Dotnet solution<CR>', noremap)
+vim.keymap.set('n', '<leader>dp', ':Dotnet projects<CR>', noremap)
+vim.keymap.set('n', '<leader>dt', ':Dotnet tests<CR>', noremap)
 
 -- Recall
 vim.keymap.set("n", "<leader>r", ":Recall<CR>", noremap)
+
+
+require("threading")
