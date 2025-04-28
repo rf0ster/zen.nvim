@@ -11,6 +11,12 @@ vim.opt.shiftwidth = 4         -- how many spaces the sfit command uses '>>' '<<
 vim.opt.expandtab = true       -- expand tabs to spaces
 vim.opt.scrolloff = 8          -- how many lines remain above and/or below the cursor while scrolling
 
+-- Sets tls rules for copilot on Windows if nvim is on windows.
+if vim.fn.has("win32") == 1 then
+  vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+end
+
+
 -- Installs the lazy nvim plugin manager on the machine.
 -- Checks to see if the plugin already exists on the machine,
 -- and if not it clones it into the correct directory.
@@ -101,6 +107,3 @@ vim.keymap.set('n', '<leader>dt', ':Dotnet tests<CR>', noremap)
 
 -- Recall
 vim.keymap.set("n", "<leader>r", ":Recall<CR>", noremap)
-
-
-require("threading")
