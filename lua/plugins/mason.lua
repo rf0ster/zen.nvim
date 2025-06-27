@@ -3,8 +3,9 @@ return {
   build = ":MasonUpdate",
   event = "BufReadPre",
   cmd = "Mason",
+  version = "^1.0.0",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    { "williamboman/mason-lspconfig.nvim", version = "^1.0.0" },
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
@@ -20,10 +21,15 @@ return {
   },
   config = function()
     -- Mason ensures LSPs are installed
-    require("mason").setup()
+    require("mason").setup({
+        ui = {
+            border = "double",
+        }
+    })
     require("mason-lspconfig").setup({
       ensure_installed = { "gopls", "lua_ls", "omnisharp" },
       automatic_installation = true,
+      automatic_enable = false,
     })
 
     -- Lspsaga enables all the nice pop ups for

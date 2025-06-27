@@ -1,6 +1,6 @@
 return {
     "rf0ster/recall.nvim",
-    dev = false,
+    dev = true,
     lazy = false,
     config = function()
         require("recall").setup({})
