@@ -107,3 +107,12 @@ vim.keymap.set('n', '<leader>dt', ':Dotnet tests<CR>', noremap)
 
 -- Recall
 vim.keymap.set("n", "<leader>r", ":Recall<CR>", noremap)
+
+-- treesitter
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "NvimTree",
+  callback = function()
+        vim.keymap.set("n", "l", ":NvimTreeResize +10<CR>", { buffer = true, noremap = true, silent = true })
+        vim.keymap.set("n", "h", ":NvimTreeResize -10<CR>", { buffer = true, noremap = true, silent = true })
+  end,
+})
