@@ -95,14 +95,10 @@ vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", noremap)
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", noremap)
 
 -- Dotnet
-vim.keymap.set('n', '<leader>db', ':lua require"dotnet.cli".build()<CR>', noremap)
-vim.keymap.set('n', '<leader>dc', ':lua require"dotnet.cli".clean()<CR>', noremap)
-vim.keymap.set('n', '<leader>dr', ':lua require"dotnet.cli".restore()<CR>', noremap)
-vim.keymap.set('n', '<leader>dh', ':lua require"dotnet.cli".open_history()<CR>', noremap)
-vim.keymap.set('n', '<leader>dl', ':lua require"dotnet.cli".run_last_cmd()<CR>', noremap)
-
 vim.keymap.set('n', '<leader>ds', ':Dotnet solution<CR>', noremap)
 vim.keymap.set('n', '<leader>dp', ':Dotnet projects<CR>', noremap)
+vim.keymap.set('n', '<leader>dh', ':Dotnet history<CR>', noremap)
+vim.keymap.set('n', '<leader>dl', ':Dotnet last_cmd<CR>', noremap)
 vim.keymap.set('n', '<leader>dt', ':Dotnet tests<CR>', noremap)
 
 -- Recall
