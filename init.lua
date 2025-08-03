@@ -54,8 +54,8 @@ require("lazy").setup({
   -- by plugins to load plugin from code
   -- rather than from a git repo.
   dev = {
-    path = vim.fn.expand("~/dev/test"),
-    fallback = true,
+    path = vim.fn.expand("~/dev/rf0ster"),
+    fallback = false,
   },
   -- Automatically check for updates when
   -- lazy nvim starts.
