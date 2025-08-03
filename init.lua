@@ -50,9 +50,12 @@ require("lazy").setup({
       import = "plugins"
     },
   },
+  -- Dev folder that can be referenced
+  -- by plugins to load plugin from code
+  -- rather than from a git repo.
   dev = {
-    path = vim.fn.expand("~/dev/rf0ster"),
-    fallback = false
+    path = vim.fn.expand("~/dev/test"),
+    fallback = true,
   },
   -- Automatically check for updates when
   -- lazy nvim starts.
@@ -100,6 +103,11 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", noremap)
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", noremap)
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", noremap)
+
+-- GitSigns
+vim.keymap.set("n", "<leader>sp", ":Gitsigns preview_hunk_inline<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>sb", ":Gitsigns blame_line<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>st", ":Gitsigns toggle_word_diff<CR>", { noremap = true, silent = true })
 
 -- Dotnet
 vim.keymap.set('n', '<leader>ds', ':Dotnet solution<CR>', noremap)
