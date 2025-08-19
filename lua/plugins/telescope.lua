@@ -11,7 +11,7 @@ return {
           prompt_position = "top",
         },
         sorting_strategy = "ascending",
-        border = true
+        border = true,
       },
     })
   end

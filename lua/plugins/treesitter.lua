@@ -1,7 +1,8 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = "VeryLazy",
-  run = ":TSUpdate",
+  branch = "master",
+  lazy = false,
+  build = ":TSUpdate",
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = { "lua", "go", "c_sharp" },
@@ -14,3 +15,4 @@ return {
     })
   end,
 }
+

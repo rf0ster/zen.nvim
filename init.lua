@@ -1,21 +1,19 @@
--- Vim settings
-vim.g.loaded_netrw = 1         -- disable netrw
-vim.g.loaded_netrwPlugin = 1   -- disable netrw
-vim.g.mapleader = " "          -- map leader for mapping <Leader>
-vim.g.maplocalleader = "\\"    -- map local leader, just a second mapping shortcut? <LocalLeader>
-vim.opt.number = true          -- displays line numbers
-vim.opt.relativenumber = true  -- use relative numbbers from the cursor
-vim.opt.tabstop = 4            -- how many spaces tabs are displayed as
-vim.opt.softtabstop = 4        -- how many spaces tabs actually use
-vim.opt.shiftwidth = 4         -- how many spaces the sfit command uses '>>' '<<'
-vim.opt.expandtab = true       -- expand tabs to spaces
-vim.opt.scrolloff = 8          -- how many lines remain above and/or below the cursor while scrolling
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.scrolloff = 8
 
--- Sets tls rules for copilot on Windows if nvim is on windows.
+-- Sets tls rules for copilot on windows
 if vim.fn.has("win32") == 1 then
-  vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+    vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 end
-
 
 -- Installs the lazy nvim plugin manager on the machine.
 -- Checks to see if the plugin already exists on the machine,
@@ -30,6 +28,7 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
 
 -- Adds the lazy nvim plugin to the vim runtime path.
 -- The runtime path contains a list of directories to 
@@ -70,32 +69,74 @@ require("lazy").setup({
   }
 })
 
--- Create a set of custom remaps to call the plugin APIs.
--- All of the plugin APIs can be called directly from 
--- Vim Command Line mode.
+---------------
+---  LSPs  ----
+---------------
+vim.lsp.config['luals'] = {
+    cmd = { 'lua-language-server' },
+    filetypes = { "lua" },
+    settings = {
+        Lua = {
+            diagnostics = { globals = { "vim" } },
+            runtime = { version = "LuaJIT" }
+        }
+    }
+}
+vim.lsp.config['gopls'] = {
+    cmd = { 'gopls' },
+    filetypes = { "go", "gomod" },
+    settings = {
+        gopls = {
+            gofumpt = true,
+            analyses = {
+                unusedparams = true,
+                shadow = true,
+            },
+            staticcheck = true,
+        }
+    }
+}
+
+vim.lsp.enable('luals')
+vim.lsp.enable('gopls')
+
+vim.diagnostic.config({
+    virtual_lines = {
+        current_line = true,
+    },
+    signs = true,
+})
+
+-- Delete neovim default keymaps for LSP in favor
+-- of custom keymaps set in lspsaga.lua
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "gra")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grt")
+
+---------------
+--- Keymaps ---
+---------------
 local noremap = { noremap = true, silent = true }
+local noremapbuffer = { noremap = true, silent = true, buffer = true }
 
--- Vim keymaps
-vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", noremap) -- Go back one buffer
-vim.keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", noremap) -- Go forward one buffer
+--- Generic ---
+vim.keymap.set("n", "<leader>w", "<C-w>w", noremap)
 
--- Lazy
+--- Lazy ---
 vim.keymap.set("n", "<leader>ll", ":Lazy<CR>", noremap)
 
--- Mason
-vim.keymap.set("n", "<leader>mm", ":Mason<CR>", noremap)
-
--- NvimTree
+--- Nvim Tree ---
 vim.keymap.set("n", "<leader>ee", ":NvimTreeToggle<CR>", noremap)
 vim.keymap.set("n", "<leader>eo", ":NvimTreeOpen<CR>", noremap)
 vim.keymap.set("n", "<leader>ec", ":NvimTreeClose<CR>", noremap)
 vim.keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>", noremap)
-vim.keymap.set("n", "<leader>ew", "<C-w>w", noremap)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "NvimTree",
   callback = function()
-        vim.keymap.set("n", "l", ":NvimTreeResize +10<CR>", { buffer = true, noremap = true, silent = true })
-        vim.keymap.set("n", "h", ":NvimTreeResize -10<CR>", { buffer = true, noremap = true, silent = true })
+        vim.keymap.set("n", "l", ":NvimTreeResize +10<CR>", noremapbuffer)
+        vim.keymap.set("n", "h", ":NvimTreeResize -10<CR>", noremapbuffer)
   end,
 })
 
@@ -105,16 +146,14 @@ vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", noremap)
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", noremap)
 
 -- GitSigns
-vim.keymap.set("n", "<leader>sp", ":Gitsigns preview_hunk_inline<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>sb", ":Gitsigns blame_line<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>st", ":Gitsigns toggle_word_diff<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>sp", ":Gitsigns preview_hunk_inline<CR>", noremap)
+vim.keymap.set("n", "<leader>sb", ":Gitsigns blame_line<CR>", noremap)
+vim.keymap.set("n", "<leader>st", ":Gitsigns toggle_word_diff<CR>", noremap)
 
--- Dotnet
-vim.keymap.set('n', '<leader>ds', ':Dotnet solution<CR>', noremap)
-vim.keymap.set('n', '<leader>dp', ':Dotnet projects<CR>', noremap)
-vim.keymap.set('n', '<leader>dh', ':Dotnet history<CR>', noremap)
-vim.keymap.set('n', '<leader>dl', ':Dotnet last_cmd<CR>', noremap)
-vim.keymap.set('n', '<leader>dt', ':Dotnet tests<CR>', noremap)
-
--- Recall
+--- Recall ---
 vim.keymap.set("n", "<leader>r", ":Recall<CR>", noremap)
+
+--- Dotnet ---
+vim.keymap.set("n", "<leader>ds", ":Dotnet solution<CR>", noremap)
+vim.keymap.set("n", "<leader>dp", ":Dotnet projects<CR>", noremap)
+vim.keymap.set("n", "<leader>dh", ":Dotnet history<CR>", noremap)
