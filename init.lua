@@ -100,13 +100,6 @@ vim.lsp.config['gopls'] = {
 vim.lsp.enable('luals')
 vim.lsp.enable('gopls')
 
-vim.diagnostic.config({
-    virtual_lines = {
-        current_line = true,
-    },
-    signs = true,
-})
-
 -- Delete neovim default keymaps for LSP in favor
 -- of custom keymaps set in lspsaga.lua
 vim.keymap.del("n", "grr")
@@ -123,6 +116,20 @@ local noremapbuffer = { noremap = true, silent = true, buffer = true }
 
 --- Generic ---
 vim.keymap.set("n", "<leader>w", "<C-w>w", noremap)
+
+--- Diagnostics ---
+vim.diagnostic.config({
+    signs = true
+})
+vim.keymap.set("n", "<leader>vd", function()
+    local current = vim.diagnostic.config().virtual_lines
+    if current then
+        vim.diagnostic.config({ virtual_lines = false, signs = true })
+    else
+        vim.diagnostic.config({ virtual_lines = { only_current_line = true }, signs = true })
+    end
+end, { noremap = true, silent = true })
+
 
 --- Lazy ---
 vim.keymap.set("n", "<leader>ll", ":Lazy<CR>", noremap)
