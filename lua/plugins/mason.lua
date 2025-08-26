@@ -6,8 +6,7 @@ return {
             ui = {
                 border = "rounded",
                 style = "double",
-            },
+            }
         })
-    end,
-
+    end
 }

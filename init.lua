@@ -9,6 +9,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.scrolloff = 8
+vim.o.winborder = "rounded"
 
 -- Sets tls rules for copilot on windows
 if vim.fn.has("win32") == 1 then
@@ -28,7 +29,6 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
-
 
 -- Adds the lazy nvim plugin to the vim runtime path.
 -- The runtime path contains a list of directories to 
@@ -97,6 +97,22 @@ vim.lsp.config['gopls'] = {
     }
 }
 
+vim.g.python3_host_prog = vim.fn.expand("~/.venvs/neovim/bin/python")
+vim.lsp.config['pyright'] = {
+    cmd = { 'pyright-langserver', '--stdio' },
+    filetypes = { "python" },
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+            }
+        }
+    }
+}
+
+vim.lsp.enable('pyright')
 vim.lsp.enable('luals')
 vim.lsp.enable('gopls')
 
