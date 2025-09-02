@@ -8,9 +8,6 @@ return {
             ["<CR>"] = { "accept", "fallback" },
             ["<C><leader>"] = { "show" }
         },
-        appearance = {
-            nerd_font_variation = "mono"
-        },
         fuzzy = {
             implementation = "prefer_rust_with_warning"
         },
