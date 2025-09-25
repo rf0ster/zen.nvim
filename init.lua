@@ -102,7 +102,7 @@ vim.lsp.config['pyright'] = {
     cmd = { 'pyright-langserver', '--stdio' },
     filetypes = { "python" },
     settings = {
-        python = { 
+        python = {
             venvPath = ".",
             venv = ".venv",
             analysis = {
@@ -183,3 +183,4 @@ vim.keymap.set("n", "<leader>ds", ":Dotnet solution<CR>", noremap)
 vim.keymap.set("n", "<leader>dp", ":Dotnet projects<CR>", noremap)
 vim.keymap.set("n", "<leader>dh", ":Dotnet history<CR>", noremap)
 vim.keymap.set("n", "<leader>dl", ":Dotnet last_cmd<CR>", noremap)
+vim.keymap.set("n", "<leader>dt", ":Dotnet tests<CR>", noremap)
