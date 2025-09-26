@@ -1,6 +1,6 @@
 return {
     "rf0ster/dotnet.nvim",
-    dev = true,
+    dev = false,
     cmd = "Dotnet",
     config = function()
         require("dotnet").setup({})
