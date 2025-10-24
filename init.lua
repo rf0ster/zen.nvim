@@ -82,6 +82,12 @@ vim.lsp.config['luals'] = {
         }
     }
 }
+
+vim.lsp.config['tsserver'] = {
+    cmd = { 'typescript-language-server', '--stdio' },
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
+}
+
 vim.lsp.config['gopls'] = {
     cmd = { 'gopls' },
     filetypes = { "go", "gomod" },
@@ -114,9 +120,11 @@ vim.lsp.config['pyright'] = {
     }
 }
 
+vim.lsp.enable('tsserver')
 vim.lsp.enable('pyright')
 vim.lsp.enable('luals')
 vim.lsp.enable('gopls')
+vim.lsp.config("roslyn", {})
 
 -- Delete neovim default keymaps for LSP in favor
 -- of custom keymaps set in lspsaga.lua
@@ -184,3 +192,19 @@ vim.keymap.set("n", "<leader>dp", ":Dotnet projects<CR>", noremap)
 vim.keymap.set("n", "<leader>dh", ":Dotnet history<CR>", noremap)
 vim.keymap.set("n", "<leader>dl", ":Dotnet last_cmd<CR>", noremap)
 vim.keymap.set("n", "<leader>dt", ":Dotnet tests<CR>", noremap)
+
+
+--- Copilot ---
+vim.g.copilot_no_tab_map = true
+vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<CR>")', {
+    expr = true,
+    noremap = true,
+    silent = true,
+    replace_keycodes = false,
+})
+
+vim.keymap.set('i', '<C-w>', '<Plug>(copilot-accept-word)', noremap)
+vim.keymap.set('i', '<C-e>', '<Plug>(copilot-accept-line)', noremap)
+vim.keymap.set('i', '<C-n>', '<Plug>(copilot-next)', noremap)
+vim.keymap.set('i', '<C-p>', '<Plug>(copilot-previous)', noremap)
+vim.keymap.set('i', '<C-d>', '<Plug>(copilot-dismiss)', noremap)
